@@ -16,7 +16,6 @@ namespace UnitTest
 			m.A = 3;	m.B = 7;	m.C = 10;
 			n.A = 6;	n.B = 14;	n.C = 15;
 			int x = isParallel(m, n);
-			//int x = 1;
 			Assert::AreEqual(x, 1);
 		}
 	};

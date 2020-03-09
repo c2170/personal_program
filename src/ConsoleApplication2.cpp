@@ -54,7 +54,7 @@ void calculate(Line m, Line n)
 	p.y = (A2 * C1 - A1 * C2) / (A1 * B2 - A2 * B1);
 	set<Point>::iterator it;
 	it = s.lower_bound(p);
-	if (s.empty()) {
+	if (s.empty() || it == s.end()) {
 		s.insert(p);
 		cnt++;
 	}
@@ -66,16 +66,48 @@ void calculate(Line m, Line n)
 	}
 }
 
-int main()
+int main(int argc, char** argv)
 {
+	FILE* in = stdin;
+	FILE* out = stdout;
 	int n, i, j;
-	double x1, y1, x2, y2;
+	double x1, y1, x2, y2, k;
 	char s[3];
-	(void)scanf("%d", &n);
+
+	for (int i = 1; i < argc; i++) {
+		if (strcmp(argv[i], "-i") == 0) {
+			i++;
+			if (i >= argc) {
+				return 0;
+			}
+			in = fopen(argv[i], "r");
+		}
+		else if (strcmp(argv[i], "-o") == 0) {
+			i++;
+			if (i >= argc) {
+				return 0;
+			}
+			out = fopen(argv[i], "w");
+		}
+		else {
+			return 0;
+		}
+	}
+	(void)fscanf(in, "%d", &n);
 	for (i = 1; i <= n; i++) {
-		(void)scanf("%s%lf%lf%lf%lf", &s, &x1, &y1, &x2, &y2);
+		(void)fscanf(in, "%s%lf%lf%lf%lf", &s, &x1, &y1, &x2, &y2);
 		line[i].x1 = x1;	line[i].y1 = y1;	 line[i].x2 = x2;	line[i].y2 = y2;
-		line[i].A = y2 - y1;	line[i].B = x1 - x2;	line[i].C = x1 * y2 - y1 * x2;
+		if (x1 == x2) {
+			line[i].A = 1;
+			line[i].B = 0;
+			line[i].C = -x1;
+		}
+		else {
+			k = (y2 - y1) / (x2 - x1);
+			line[i].A = k;
+			line[i].B = -1;
+			line[i].C = y1 - k * x1;
+		}
 	}
 	cnt = 0;
 	for (i = 2; i <= n; i++) {
@@ -83,7 +115,7 @@ int main()
 			calculate(line[i], line[j]);
 		}
 	}
-	printf("%d\n", cnt);
+	fprintf(out, "%d\n", cnt);
 	return 0;
 }
 
