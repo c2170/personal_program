@@ -2,24 +2,14 @@
 //
 
 #pragma warning(disable:4996)
-# define _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
 #include <set>
 #include <string>
+#include "head.h"
 
 using namespace std;
-
-typedef struct
-{
-	double x1, y1, x2, y2;
-	double A, B, C;
-}Line;
-
-typedef struct
-{
-	double x, y;
-}Point;
 
 Line line[500010];
 set<Point> s;
@@ -80,11 +70,10 @@ int main()
 {
 	int n, i, j;
 	double x1, y1, x2, y2;
-	char c;
 	char s[3];
-	scanf("%d", &n);
+	(void)scanf("%d", &n);
 	for (i = 1; i <= n; i++) {
-		scanf("%s%lf%lf%lf%lf", &s, &x1, &y1, &x2, &y2);
+		(void)scanf("%s%lf%lf%lf%lf", &s, &x1, &y1, &x2, &y2);
 		line[i].x1 = x1;	line[i].y1 = y1;	 line[i].x2 = x2;	line[i].y2 = y2;
 		line[i].A = y2 - y1;	line[i].B = x1 - x2;	line[i].C = x1 * y2 - y1 * x2;
 	}
@@ -97,4 +86,6 @@ int main()
 	printf("%d\n", cnt);
 	return 0;
 }
+
+
 
