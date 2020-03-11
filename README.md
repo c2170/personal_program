@@ -16,7 +16,7 @@ isParallel()函数的功能是判断两条直线是否平行，若平行则返�
 
 ### /bin/
 
-#### ConsoleApplication2.exe
+### intersect.exe
 
 可执行文件
 
